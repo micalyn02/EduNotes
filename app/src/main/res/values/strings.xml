@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">EduNotes</string>
+    <string name="edunotes">EduNotes</string>
+    <string name="welcome_to_edunotes">Welcome to EduNotes!</string>
+    <string name="username">Username</string>
+    <string name="school_email">School Email</string>
+    <string name="name">Name</string>
+    <string name="get_started">Get Started</string>
+</resources>
