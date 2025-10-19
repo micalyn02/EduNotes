@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,38 +22,52 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         // reference to name, school email, username and continue button
-        EditText etName = findViewById(R.id.etName);
-        EditText etSEmail = findViewById(R.id.etSEmail);
-        EditText etUsername = findViewById(R.id.etUsername);
-        Button btnContinue = findViewById(R.id.btnContinue);
+        EditText etEmail = findViewById(R.id.etEmail);
+        EditText etPassword = findViewById(R.id.etPassword);
+        Button btnLogin = findViewById(R.id.btnLogin);
+        Button btnSignup = findViewById(R.id.btnSignup);
 
-        // handle continue button click
-        btnContinue.setOnClickListener(v -> {
+        DBHandler dbHandler;
+        // initialize db handler
+        dbHandler = new DBHandler(LoginActivity.this);
+
+        // handle login button click
+        btnLogin.setOnClickListener(v -> {
             // get the values from the edit texts
-            String name = etName.getText().toString();
-            String schoolEmail = etSEmail.getText().toString();
-            String username = etUsername.getText().toString();
+            String Email = etEmail.getText().toString().trim();
+            String Password = etPassword.getText().toString().trim();
 
             // check if all fields are filled
-            if (!name.isEmpty() || !schoolEmail.isEmpty() || !username.isEmpty()) {
+            if (Email.isEmpty() || Password.isEmpty()) {
+                Toast.makeText(LoginActivity.this, "Please fill all fieldsl", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            // check if user is registered
+            Boolean checkUser = dbHandler.checkUser(Email, Password);
+
+            if (checkUser) {
                 // save login details to shared preferences
                 SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putBoolean("isLoggedIn", true);
-                editor.putString("name", name);
-                editor.putString("schoolEmail", schoolEmail);
-                editor.putString("username", username);
+                editor.putString("email", Email);
+                editor.putString("password", Password);
                 editor.apply();
+
+                Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
 
                 // go to main activity
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 finish(); // close the login activity
             } else {
-                // show error message if any field is empty
-                etName.setError("Name is required");
-                etSEmail.setError("School email is required");
-                etUsername.setError("Username is required");
+                Toast.makeText(LoginActivity.this, "Login failed. Incorrect email or password.", Toast.LENGTH_SHORT).show();
             }
+        });
+
+        // handle signup button click
+        btnSignup.setOnClickListener(v1 -> {
+            // go to signup activity
+            startActivity(new Intent(LoginActivity.this, SignupActivity.class));
         });
     }
 }

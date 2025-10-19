@@ -2,8 +2,16 @@
     <string name="app_name">EduNotes</string>
     <string name="edunotes">EduNotes</string>
     <string name="welcome_to_edunotes">Welcome to EduNotes!</string>
-    <string name="username">Username</string>
-    <string name="school_email">School Email</string>
     <string name="name">Name</string>
     <string name="get_started">Get Started</string>
+    <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="signup">Signup</string>
+    <string name="full_name">Full Name</string>
+    <string name="register_email">Register Email</string>
+    <string name="signup_to_edunotes">Signup to EduNotes</string>
+    <string name="create_password">Create Password</string>
+    <string name="register_account">Register Account</string>
 </resources>

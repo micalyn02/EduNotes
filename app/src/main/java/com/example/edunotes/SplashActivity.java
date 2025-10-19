@@ -23,7 +23,7 @@ public class SplashActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_splash);
 
-        // can be removed for launch
+        // can be removed for before launch
         if (FORCE_LOGOUT_ON_START) {
             // clear shared preferences on start
             SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
